@@ -42,4 +42,19 @@ def output_map(grid):
  #Test
   output_map([.2, .2, .2, .2, .2])
     
+    
+    
+ def update_probabilities(grid, updates):
+    for i in range(len(updates)):
+        grid[updates[i][0]] = updates[i][1]
+        
+    return grid
+
+
+#Test
+assert update_probabilities([0.2, 0.2, 0.2, 0.2, 0.2], [[0, .4], [1, 0.15], [2, 0.15], [3, 0.15], [4, 0.15]]) == [0.4, 0.15, 0.15, 0.15, 0.15]
+assert update_probabilities([0.2, 0.2, 0.2, 0.2, 0.2], [[1, 0.15], [0, .4], [4, 0.15], [2, 0.15], [3, 0.15]]) == [0.4, 0.15, 0.15, 0.15, 0.15]
+assert update_probabilities([0.2, 0.2, 0.2, 0.2, 0.2], [[0, .25], [4, 0.15]]) == [0.25, 0.2, 0.2, 0.2, 0.15]
+
+print('Everything looks good!')
    
