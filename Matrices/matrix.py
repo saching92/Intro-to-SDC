@@ -56,11 +56,11 @@ class Matrix(object):
         if not self.is_square():
             raise(ValueError, "Cannot calculate the trace of a non-square matrix.")
 
-        elif:
-            sum=0
-            for i in range(self.h):
-                sum= sum+ self.g[i][i]
-                return sum
+        
+        sum=0
+        for i in range(self.w):
+            sum += self.g[i][i]
+        return sum
                  
 
     def inverse(self):
@@ -71,13 +71,13 @@ class Matrix(object):
             raise(ValueError, "Non-square Matrix does not have an inverse.")
         if self.h > 2:
             raise(NotImplementedError, "inversion not implemented for matrices larger than 2x2.")
-        if self.h==1:
-            inverse= matrix(1/self.g[0][0])
+        if self.w==1:
+            inverse= Matrix(1/self.g[0][0])
             return inverse
-        elif self.h==2:
+        if self.w==2:
             inverse=zeroes(2,2)
             inverse[0][0]= self.g[1][1]
-            inverse[0][1]=self.g[0][1]
+            inverse[0][1]=-self.g[0][1]
             inverse[1][0]=-self.g[1][0]
             inverse[1][1]=self.g[0][0]
             
@@ -185,12 +185,12 @@ class Matrix(object):
 
     def __mul__(self, other):
         
-        grid= zeroes(self.h,self.w)
+        grid= zeroes(self.h,other.w)
         
         for i in range(self.h):
-            for j in range(self.w):
+            for j in range(other.w):
                 for k in range(other.h):
-                    grid[i][j]=+self.g[i][k]+other.g[k][j]
+                    grid[i][j] += self.g[i][k]*other.g[k][j]
         return grid
             
         """
